@@ -19,6 +19,7 @@ int main(void)
         divides++;
     }
 
+    //Проверка начальных цифр
     long FirstDigits = number2;
     while (FirstDigits != 0 &&
     FirstDigits != 34 &&
@@ -38,8 +39,6 @@ int main(void)
         {
             DigitCounter++;
             int digit = number2 % 10;
-
-            //Для чётных с конца разрядов
             if (DigitCounter % 2 == 0)
             {
                 doubled = digit * 2;
@@ -53,8 +52,6 @@ int main(void)
                     SumOfDigits += doubled;
                 }
             }
-
-            //Для нечётных с конца разрядов
             else
             {
                 SumOfDigits += digit;
@@ -68,7 +65,8 @@ int main(void)
         {
             printf("AmericanExpress\n");
         }
-        else if ((divides == 16) && (SumOfDigits % 10 == 0) &&
+        else if ((divides == 16) && 
+        (SumOfDigits % 10 == 0) &&
         (FirstDigits == 51 ||
         FirstDigits == 52 ||
         FirstDigits == 53 ||
@@ -77,7 +75,8 @@ int main(void)
         {
             printf("MasterCard\n");
         }
-        else if ((divides == 16 || divides == 13) && (SumOfDigits % 10 == 0) &&
+        else if ((divides == 16 || divides == 13) && 
+        (SumOfDigits % 10 == 0) &&
         (FirstDigits == 4))
         {
             printf("Visa\n");
