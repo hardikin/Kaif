@@ -1,0 +1,88 @@
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    //Запрос номера карты
+    long number = get_long("Please, print a number of your card - ");
+    long number2 = number;
+    int SumOfDigits = 0;
+    int DigitCounter = 0;
+    int doubled = 0;
+    int sum_of_doubled = 0;
+
+    //Проверка на количество разрядов в числе
+    int divides = 0;
+    while (number > 0)
+    {
+        number = number / 10;
+        divides++;
+    }
+
+    long FirstDigits = number2;
+    while (FirstDigits != 0 &&
+    FirstDigits != 34 &&
+    FirstDigits != 37 &&
+    FirstDigits != 51 &&
+    FirstDigits != 52 &&
+    FirstDigits != 53 &&
+    FirstDigits != 54 &&
+    FirstDigits != 55 &&
+    FirstDigits != 4)
+    {
+        FirstDigits /= 10;
+    }
+
+    //Условие, при котором начинаем вычисления
+        while (number2 > 0)
+        {
+            DigitCounter++;
+            int digit = number2 % 10;
+
+            //Для чётных с конца разрядов
+            if (DigitCounter % 2 == 0)
+            {
+                doubled = digit * 2;
+                if (doubled > 9)
+                {
+                    sum_of_doubled = doubled % 10 + doubled / 10;
+                    SumOfDigits += sum_of_doubled;
+                }
+                else
+                {
+                    SumOfDigits += doubled;
+                }
+            }
+
+            //Для нечётных с конца разрядов
+            else
+            {
+                SumOfDigits += digit;
+            }
+            number2 /= 10;
+        }
+
+        //Конечный вывод
+        if ((divides == 15) && (SumOfDigits % 10 == 0) &&
+        (FirstDigits == 34 || FirstDigits == 37))
+        {
+            printf("AmericanExpress\n");
+        }
+        else if ((divides == 16) && (SumOfDigits % 10 == 0) &&
+        (FirstDigits == 51 ||
+        FirstDigits == 52 ||
+        FirstDigits == 53 ||
+        FirstDigits == 54 ||
+        FirstDigits == 55))
+        {
+            printf("MasterCard\n");
+        }
+        else if ((divides == 16 || divides == 13) && (SumOfDigits % 10 == 0) &&
+        (FirstDigits == 4))
+        {
+            printf("Visa\n");
+        }
+        else
+        {
+            printf("INVALID\n");
+        }
